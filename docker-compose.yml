@@ -1,0 +1,28 @@
+services:
+  redis:
+    image: redis:7-alpine
+    volumes:
+      - redis-data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: visitor-counter:v1
+    ports:
+      - "5000:5000"
+    environment:
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - CLUSTER_NAME=compose
+    depends_on:
+      redis:
+        condition: service_healthy
+
+volumes:
+  redis-data:
