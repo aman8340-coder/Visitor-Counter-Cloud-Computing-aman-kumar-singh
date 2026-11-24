@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cloud Visitor Counter - Container & Kubernetes Monitoring</title>
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+  <main class="container">
+    <header class="topbar">
+      <div>
+        <h1>Cloud Visitor Counter</h1>
+        <p class="subtitle">Container &amp; Kubernetes Monitoring</p>
+      </div>
+      <span class="badge">{{ cluster | upper }} ENVIRONMENT</span>
+    </header>
+
+    <section class="card hero">
+      <div class="label">TOTAL VISITORS</div>
+      <div class="count">{{ count }}</div>
+      <p class="desc">Unique requests recorded atomically in Redis</p>
+      <button class="btn" onclick="window.location.reload()">Refresh Counter</button>
+    </section>
+
+    <section class="grid">
+      <div class="card status-card">
+        <div class="meta">Application Health</div>
+        <div class="value ok">Healthy</div>
+        <div class="hint">Flask + Gunicorn process active</div>
+      </div>
+      <div class="card status-card">
+        <div class="meta">Redis Database</div>
+        <div class="value ok">Connected</div>
+        <div class="hint">Atomic INCR / PING verified</div>
+      </div>
+      <div class="card status-card">
+        <div class="meta">Cluster</div>
+        <div class="value">{{ cluster }}</div>
+        <div class="hint">Active deployment environment</div>
+      </div>
+      <div class="card status-card">
+        <div class="meta">Container / Pod</div>
+        <div class="value mono">{{ pod }}</div>
+        <div class="hint">Serving this request</div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
